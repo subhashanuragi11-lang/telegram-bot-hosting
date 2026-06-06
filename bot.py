@@ -726,7 +726,11 @@ text = f"""
 
 {divider()}
 """
-        await callback.message.edit_text(text, reply_markup=back_kb(f"bot_details_{bot_id}"))
+await callback.message.edit_text(
+    text,
+    reply_markup=back_kb(f"bot_details_{bot_id}")
+)
+
 except Exception as e:
     await callback.answer(
         f"❌ Log Error:\n{str(e)[:100]}",

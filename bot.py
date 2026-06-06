@@ -715,7 +715,7 @@ except Exception as e:
 if not logs:
     logs = "Bot started but no output yet."
         
-        text = f"""
+text = f"""
 {stylish_text("Bot Logs", "📜")}
 
 {divider()}

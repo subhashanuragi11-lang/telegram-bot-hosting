@@ -712,12 +712,8 @@ try:
 except Exception as e:
     logs = f"Error reading logs: {e}"
 
-# Last important lines only
-logs_lines = logs.splitlines()
-logs = "\n".join(logs_lines[-40:])
-        
-        if not logs:
-            logs = "No logs available yet."
+if not logs:
+    logs = "Bot started but no output yet."
         
         text = f"""
 {stylish_text("Bot Logs", "📜")}

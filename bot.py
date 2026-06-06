@@ -702,9 +702,9 @@ async def show_logs(callback: CallbackQuery):
     
     log_file, bot_name = result
     
-    try:
-with open(log_file, 'r', encoding='utf-8', errors='ignore') as f:
-    logs = f.read()
+try:
+    with open(log_file, 'r', encoding='utf-8', errors='ignore') as f:
+        logs = f.read()
 
 if not logs.strip():
     logs = "No logs available."

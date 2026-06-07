@@ -9,7 +9,7 @@ import subprocess
 import signal
 import time
 import json
-import psuti
+import psutil
 import htmll
 from datetime import datetime, timedelta
 from pathlib import Path

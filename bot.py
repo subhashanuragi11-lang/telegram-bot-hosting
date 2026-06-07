@@ -10,7 +10,7 @@ import signal
 import time
 import json
 import psutil
-import htmll
+import html
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -715,7 +715,7 @@ async def show_logs(callback: CallbackQuery):
 
     logs_lines = logs.splitlines()
     logs = "\n".join(logs_lines[-40:])
-    logs = html.escape(logs)
+    safe_logs = html.escape(logs[:3500])
 
     text = f"""
 {stylish_text("Bot Logs", "📜")}

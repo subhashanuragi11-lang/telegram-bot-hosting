@@ -1313,6 +1313,7 @@ async def status_cmd(message: types.Message):
 """
     await message.answer(text, reply_markup=admin_kb())
 
+async def main():
     print("Bot Started Successfully")
     await dp.start_polling(bot)
 

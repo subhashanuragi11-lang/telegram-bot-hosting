@@ -1479,7 +1479,7 @@ async def admin_bots(callback: CallbackQuery):
 🚀 Rai Bot Hosting
 """,
     reply_markup=admin_kb()
-    )
+)
     
 
 @dp.callback_query(F.data == "admin_channel")

@@ -1462,7 +1462,7 @@ async def admin_bots(callback: CallbackQuery):
 
     conn.close()
 
-    
+    await callback.message.edit_text(
     f"""
 ╔══════════════════╗
         🤖 BOTS
@@ -1539,7 +1539,7 @@ async def admin_broadcast(callback: CallbackQuery):
     await callback.answer()
 
     await callback.message.answer(
-        """
+        f"""
 ╔══════════════════╗
      📢 BROADCAST
 ╚══════════════════╝
@@ -1566,7 +1566,7 @@ async def admin_maintenance(callback: CallbackQuery):
     await callback.answer()
 
     await callback.message.answer(
-        """
+        f"""
 ╔══════════════════╗
     🔧 MAINTENANCE
 ╚══════════════════╝
@@ -1592,7 +1592,7 @@ async def admin_ban(callback: CallbackQuery):
     await callback.answer()
 
     await callback.message.answer(
-        """
+        f"""
 ╔══════════════════╗
       🚫 BAN USER
 ╚══════════════════╝
@@ -1616,7 +1616,7 @@ Example:
 async def admin_unban(callback: CallbackQuery):
 
     await callback.message.answer(
-        """
+        f"""
 ╔══════════════════╗
     ✅ UNBAN USER
 ╚══════════════════╝
@@ -1640,7 +1640,7 @@ async def admin_premium(callback: CallbackQuery):
     await callback.answer()
 
     await callback.message.answer(
-        """
+        f"""
 ╔══════════════════╗
       💎 PREMIUM
 ╚══════════════════╝
@@ -1671,7 +1671,7 @@ async def admin_panel(message: types.Message):
         return
 
     await message.answer(
-"""
+        f"""
 ╔══════════════════╗
       👑 ADMIN PANEL
 ╚══════════════════╝
@@ -1757,45 +1757,45 @@ async def maintenance_cmd(message: types.Message):
     await message.answer(status_text)
 
 @dp.message(Command("broadcast"))
-async def broadcast_cmd(message: types.Message, state: FSMContext):
+async def broadcast_cmd(message: types.Message):
+
     if not is_admin(message.from_user.id):
-        await message.answer("❌ <b>Admin only!</b>")
         return
-    
-    if not message.reply_to_message:
-        await message.answer("❌ <b>Reply to a message to broadcast!</b>")
+
+    args = message.text.split(maxsplit=1)
+
+    if len(args) < 2:
+        await message.answer(
+            "Usage:\n/broadcast Hello Everyone"
+        )
         return
-    
+
+    broadcast_text = args[1]
+
     conn = get_db()
     c = conn.cursor()
     c.execute("SELECT user_id FROM users WHERE is_banned=0")
     users = c.fetchall()
     conn.close()
-    
+
     sent = 0
     failed = 0
-    
+
     for user in users:
         try:
-            await bot.copy_message(
+            await bot.send_message(
                 chat_id=user[0],
-                from_chat_id=message.chat.id,
-                message_id=message.reply_to_message.message_id
+                text=broadcast_text
             )
             sent += 1
         except:
             failed += 1
-    
-    await message.answer(f"""
-{stylish_text("Broadcast Complete", "📢")}
 
-{divider()}
-
-✅ <b>Sent:</b> {sent}
-❌ <b>Failed:</b> {failed}
-
-{divider()}
-""")
+    await message.answer(
+        f"✅ Broadcast Complete\n\n"
+        f"Sent: {sent}\n"
+        f"Failed: {failed}"
+    )
 
 @dp.message(Command("bp"))
 async def add_bot_limit(message: types.Message):

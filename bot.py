@@ -46,7 +46,7 @@ Thread(target=run_web, daemon=True).start()
 # ⚙️ CONFIGURATION
 # ═══════════════════════════════════════════════════
 
-BOT_TOKEN = "8965239565:AAEclEkNLrAUdOsQxBwb0cWhBwcGPzmzWg0"
+BOT_TOKEN = "8978305202:AAHJSf-ivSP_IR1w_JMjHPxDYMkeQiG41NE"
 OWNER_USERNAME = "@Subhash_Anuragi_RAI"
 OWNER_ID = 6406769029
 FORCE_JOIN_CHANNEL = "https://t.me/raiaddaarmys"
